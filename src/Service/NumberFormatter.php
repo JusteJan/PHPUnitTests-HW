@@ -89,26 +89,4 @@ class NumberFormatter
 
         return $number;
     }
-
-    /**
-     * @param float $number
-     * @return bool
-     */
-    private function isThousandsException(float $number): bool
-    {
-        if (abs($number) > 999 && abs($number) < 999.9999 && round(abs($number), 2) == 1000) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * @param float $number
-     * @return float
-     */
-    private function getDecimal(float $number): float
-    {
-        return $number - (int)$number;
-    }
 }
