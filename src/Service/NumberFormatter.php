@@ -11,13 +11,13 @@ class NumberFormatter
      */
     public function format(float $number): string
     {
-        if (round(abs($number))/1000000 >= 0.9995) {
+        if ((abs($number)/1000000 >= 0.9995)) {
             return $this->formatMillions($number);
         }
-        if (round(abs($number))/100000 >= 0.9995) {
+        if ((abs($number)/100000 >= 0.9995)) {
             return $this->formatHundredThousands($number);
         }
-        if ((abs($number))/1000 >= 0.9999999) {
+        if ((abs($number))/1000 >= 0.999995) {
 
             return $this->formatThousands($number);
         }
@@ -67,10 +67,6 @@ class NumberFormatter
      */
     private function formatLessThanThousands(float $number): string
     {
-        if ($this->isThousandsException($number)) {
-            return $this->formatThousandsExceptions($number);
-        }
-
         $number = round($number, 2);
         $number = $this->addTrailingZeros($number);
 
@@ -105,19 +101,6 @@ class NumberFormatter
         }
 
         return false;
-    }
-
-    /**
-     * @param float $number
-     * @return string
-     */
-    private function formatThousandsExceptions(float $number): string
-    {
-        $decimal = $this->getDecimal($number);
-        $int = $number - $decimal;
-        $decimal = $decimal*100%100;
-
-        return $int . '.' . abs($decimal);
     }
 
     /**
